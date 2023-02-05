@@ -2,15 +2,20 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/quotes/quotes.dart';
 import '../../core/app_colors.dart';
 import '../../core/theme.dart';
 import '../../routes/router.gr.dart';
 
 class FavoriteQuoteWidget extends StatelessWidget {
-  const FavoriteQuoteWidget({super.key});
+  const FavoriteQuoteWidget({super.key, required this.quotes});
+
+  final Quotes quotes;
 
   @override
   Widget build(BuildContext context) {
+    final favQuote = quotes.results.firstWhere((quote) => quote.faved == true);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -46,7 +51,7 @@ class FavoriteQuoteWidget extends StatelessWidget {
                 const SizedBox(width: 10),
                 Expanded(
                   child: AutoSizeText(
-                    "\"The true meaning of life is to plant trees, under whose shade you do not expect to sit.\" - Unknown",
+                    "\"${favQuote.content}\" - ${favQuote.author}",
                     style: themeData.textTheme.bodyMedium,
                   ),
                 ),
@@ -54,6 +59,7 @@ class FavoriteQuoteWidget extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(height: 20),
       ],
     );
   }

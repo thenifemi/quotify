@@ -15,16 +15,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<QuotesBloc>()..add(GetQuotes()),
-      child: BlocConsumer<QuotesBloc, QuotesState>(
-        listener: (context, state) {
-          state.failureOrResponseOption.fold(
-            () => {},
-            (either) => either.fold(
-              (failure) => {print(failure)},
-              (response) => {print(response)},
-            ),
-          );
-        },
+      child: BlocBuilder<QuotesBloc, QuotesState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
@@ -36,12 +27,30 @@ class HomeScreen extends StatelessWidget {
             body: Container(
               padding: const EdgeInsets.all(20),
               height: double.infinity,
-              child: Column(
-                children: const [
-                  FavoriteQuoteWidget(),
-                  SizedBox(height: 20),
-                  AllQuotesWidget(),
-                ],
+              child: state.failureOrResponseOption.fold(
+                () => Container(),
+                (either) => either.fold(
+                  (_) => Center(
+                    child: AutoSizeText(
+                      "😪 Uh oh! An error occurred!",
+                      style: themeData.textTheme.bodyMedium,
+                    ),
+                  ),
+                  (response) {
+                    final hasFavQuote = response.results.any(
+                      (quote) => quote.faved == true,
+                    );
+
+                    return Column(
+                      children: [
+                        hasFavQuote
+                            ? FavoriteQuoteWidget(quotes: response)
+                            : Container(),
+                        AllQuotesWidget(quotes: response),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           );

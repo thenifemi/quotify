@@ -2,12 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/quotes/quotes.dart';
 import '../../core/app_colors.dart';
 import '../../core/theme.dart';
 import '../../routes/router.gr.dart';
 
 class AllQuotesWidget extends StatelessWidget {
-  const AllQuotesWidget({super.key});
+  const AllQuotesWidget({super.key, required this.quotes});
+
+  final Quotes quotes;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +25,10 @@ class AllQuotesWidget extends StatelessWidget {
           const SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, snapshot) {
+              itemCount: quotes.results.length,
+              itemBuilder: (context, index) {
+                final quote = quotes.results[index];
+
                 return Container(
                   margin: const EdgeInsets.only(bottom: 10),
                   decoration: BoxDecoration(
@@ -51,7 +56,7 @@ class AllQuotesWidget extends StatelessWidget {
                         const SizedBox(width: 10),
                         Expanded(
                           child: AutoSizeText(
-                            "\"The true meaning of life is to plant trees, under whose shade you do not expect to sit.\" - Unknown",
+                            "\"${quote.content}\" - ${quote.author}",
                             style: themeData.textTheme.bodyMedium,
                           ),
                         ),
