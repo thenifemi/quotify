@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../domain/quotes/failure.dart';
 import '../../domain/quotes/quotes.dart';
@@ -10,6 +12,7 @@ part 'quotes_bloc.freezed.dart';
 part 'quotes_event.dart';
 part 'quotes_state.dart';
 
+@injectable
 class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
   final QuotesInterface quotesInterface;
 
@@ -22,14 +25,26 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         ),
       );
 
-      final failureOrResponse = await quotesInterface.getQuotes();
+      final quotesBox = await Hive.openBox<Quotes>('quotes');
 
-      emit(
-        state.copyWith(
-          isLoading: false,
-          failureOrResponseOption: some(failureOrResponse),
-        ),
-      );
+      if (quotesBox.isEmpty) {
+        final failureOrResponse = await quotesInterface.getQuotes();
+        emit(
+          state.copyWith(
+            isLoading: false,
+            failureOrResponseOption: some(failureOrResponse),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            failureOrResponseOption: some(right(
+              quotesBox.get('quotes')!,
+            )),
+          ),
+        );
+      }
     });
   }
 }

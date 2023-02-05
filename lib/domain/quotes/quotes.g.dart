@@ -73,13 +73,14 @@ class ResultAdapter extends TypeAdapter<Result> {
       length: fields[4] as int,
       dateAdded: fields[5] as DateTime,
       dateModified: fields[6] as DateTime,
+      faved: fields[7] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Result obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -93,7 +94,9 @@ class ResultAdapter extends TypeAdapter<Result> {
       ..writeByte(5)
       ..write(obj.dateAdded)
       ..writeByte(6)
-      ..write(obj.dateModified);
+      ..write(obj.dateModified)
+      ..writeByte(7)
+      ..write(obj.faved);
   }
 
   @override

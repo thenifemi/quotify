@@ -1,13 +1,16 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../domain/quotes/failure.dart';
 import '../../domain/quotes/quotes.dart';
 import '../../domain/quotes/quotes_interface.dart';
 
+@LazySingleton(as: QuotesInterface)
 class QuotesRepository implements QuotesInterface {
   @override
   Future<Either<Failure, Quotes>> getQuotes() async {
@@ -18,6 +21,9 @@ class QuotesRepository implements QuotesInterface {
 
       switch (response.statusCode) {
         case 200:
+          final quotesBox = await Hive.openBox<Quotes>('quotes');
+          quotesBox.put('quotes', quotesFromJson(response.body));
+
           return right(quotesFromJson(response.body));
 
         case 403:

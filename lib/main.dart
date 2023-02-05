@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 
 import 'injection.dart';
@@ -16,6 +17,7 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
 
+  await Hive.initFlutter();
   registerAdapters();
 
   configureDependencies(Environment.dev);

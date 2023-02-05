@@ -66,6 +66,7 @@ class Result extends HiveObject {
     required this.length,
     required this.dateAdded,
     required this.dateModified,
+    this.faved,
   });
 
   @HiveField(0)
@@ -82,6 +83,8 @@ class Result extends HiveObject {
   final DateTime dateAdded;
   @HiveField(6)
   final DateTime dateModified;
+  @HiveField(7)
+  final bool? faved;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
         id: json["_id"],
