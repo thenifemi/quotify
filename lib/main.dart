@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 
 import 'injection.dart';
 import 'presentation/app/app.dart';
+import 'register_adapters.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +15,8 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  registerAdapters();
 
   configureDependencies(Environment.dev);
 
