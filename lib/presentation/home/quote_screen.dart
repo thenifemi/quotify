@@ -127,7 +127,6 @@ class QuoteScreen extends HookWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        centerTitle: true,
         title: AutoSizeText(
           "📜 Quotify",
           style: themeData.textTheme.titleLarge,

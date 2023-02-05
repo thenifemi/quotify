@@ -12,7 +12,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: AutoSizeText(
           "📜 Quotify",
           style: themeData.textTheme.titleLarge,
@@ -20,6 +19,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
+        height: double.infinity,
         child: Column(
           children: const [
             FavoriteQuoteWidget(),

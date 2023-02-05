@@ -5,18 +5,34 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 final themeData = ThemeData(
-  // brightness: Brightness.light,
   primaryColor: AppColors.primary,
-  backgroundColor: AppColors.primary,
+  colorScheme: ColorScheme(
+    background: AppColors.primary,
+    brightness: Brightness.light,
+    error: AppColors.primary,
+    onBackground: AppColors.primary,
+    onError: AppColors.primary,
+    onPrimary: AppColors.primary,
+    onSecondary: AppColors.primary,
+    onSurface: AppColors.primary,
+    primary: AppColors.primary,
+    secondary: AppColors.primary,
+    surface: AppColors.primary,
+  ),
   scaffoldBackgroundColor: AppColors.primary,
   appBarTheme: AppBarTheme(
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
-      color: Colors.transparent,
-      elevation: 0.0,
-      centerTitle: false,
-      iconTheme: IconThemeData(
-        color: AppColors.dark,
-      )),
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: AppColors.dark,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ),
+    backgroundColor: Colors.transparent,
+    elevation: 0.0,
+    centerTitle: false,
+    iconTheme: IconThemeData(
+      color: AppColors.dark,
+    ),
+  ),
   textTheme: TextTheme(
     titleLarge: GoogleFonts.cormorantGaramond(
       color: AppColors.dark,
