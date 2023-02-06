@@ -20,6 +20,16 @@ This project is built using DDD - Domain Driven Development, which focuses on se
 - Application Layer: Responsible for managing the state of the application.
 - Infrastructure Layer: Where all the API calls reside.
 
+### Features 💕
+
+The quotify application has a range of features available to the user.
+
+- `Fav quotes 💕` - the ability to like quotes.
+- `UnFav quotes 💔` - the ability to unlike quotes.
+- `Edit quotes 🖋️` - the ability to edit quotes.
+- `Delete quotes 🗑️` - the ability to delete quotes.
+- `Reset quotes 🌍` - the ability to refetch quotes from the internet.
+
 ## Building the application 🚀
 
 To build the application,please clone the repo and ensure that in your terminal or CMD, you are in the folder called "quotify" and then run the following: `flutter pub get`
