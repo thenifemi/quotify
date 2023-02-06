@@ -3,7 +3,11 @@ part of 'quotes_bloc.dart';
 @immutable
 abstract class QuotesEvent {}
 
-class GetQuotes extends QuotesEvent {}
+class GetQuotes extends QuotesEvent {
+  GetQuotes({required this.resetQuotes});
+
+  final bool resetQuotes;
+}
 
 class FavQuote extends QuotesEvent {
   FavQuote(this.id);

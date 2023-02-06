@@ -18,7 +18,10 @@ class App extends HookWidget {
     FlutterNativeSplash.remove();
 
     return BlocProvider(
-      create: (context) => getIt<QuotesBloc>()..add(GetQuotes()),
+      create: (context) => getIt<QuotesBloc>()
+        ..add(
+          GetQuotes(resetQuotes: false),
+        ),
       child: MaterialApp.router(
         title: 'Quotify',
         theme: themeData,

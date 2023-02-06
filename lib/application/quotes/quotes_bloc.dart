@@ -28,6 +28,10 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
 
       final quotesBox = await Hive.openBox<Quotes>('quotes');
 
+      if (event.resetQuotes) {
+        quotesBox.delete('quotes');
+      }
+
       if (quotesBox.isEmpty) {
         final failureOrResponse = await quotesInterface.getQuotes();
         emit(
