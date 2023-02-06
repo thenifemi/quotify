@@ -23,13 +23,13 @@ class HomeScreen extends StatelessWidget {
                 return "💕 Quote faved!";
 
               case QuoteAction.unfaved:
-                return "💕 Quote unfaved!";
+                return "💔 Quote unfaved!";
 
               case QuoteAction.edited:
-                return "💕 Quote edited!";
+                return "✍🏼 Quote edited!";
 
               case QuoteAction.deleted:
-                return "💕 Quote deleted!";
+                return "🗑️ Quote deleted!";
 
               default:
                 return "No action";

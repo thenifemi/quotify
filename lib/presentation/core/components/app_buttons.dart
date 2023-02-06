@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/app_colors.dart';
-import '../../core/theme.dart';
+import '../app_colors.dart';
+import '../theme.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
