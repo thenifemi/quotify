@@ -18,9 +18,10 @@ class UnFavQuote extends QuotesEvent {
 }
 
 class EditQuote extends QuotesEvent {
-  EditQuote(this.id);
+  EditQuote(this.id, this.text);
 
   final String id;
+  final String text;
 }
 
 class DeleteQuote extends QuotesEvent {

@@ -21,7 +21,7 @@ class QuoteScreen extends HookWidget {
     final isEditing = useState<bool>(false);
     final textController = useTextEditingController(text: quote.content);
 
-    Widget buildButtons(BuildContext _context) {
+    Widget buildButtons() {
       return AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
         child: isEditing.value
@@ -37,6 +37,10 @@ class QuoteScreen extends HookWidget {
                   const SizedBox(width: 10),
                   AppButton(
                     onPressed: () {
+                      context
+                          .read<QuotesBloc>()
+                          .add(EditQuote(quote.id, textController.text));
+
                       isEditing.value = false;
                     },
                     label: "💾 Save",
@@ -49,7 +53,7 @@ class QuoteScreen extends HookWidget {
                   quote.faved == true
                       ? AppButton(
                           onPressed: () {
-                            _context
+                            context
                                 .read<QuotesBloc>()
                                 .add(UnFavQuote(quote.id));
                             context.router.pop("faved");
@@ -58,7 +62,7 @@ class QuoteScreen extends HookWidget {
                         )
                       : AppButton(
                           onPressed: () {
-                            _context.read<QuotesBloc>().add(FavQuote(quote.id));
+                            context.read<QuotesBloc>().add(FavQuote(quote.id));
                             context.router.pop("faved");
                           },
                           label: "💕 Fav",
@@ -73,6 +77,7 @@ class QuoteScreen extends HookWidget {
                   const SizedBox(width: 10),
                   AppButton(
                     onPressed: () {
+                      context.read<QuotesBloc>().add(DeleteQuote(quote.id));
                       context.router.pop("deleted");
                     },
                     label: "🗑️ Delete",
@@ -154,7 +159,7 @@ class QuoteScreen extends HookWidget {
               children: [
                 buildQuote(),
                 const SizedBox(height: 10),
-                buildButtons(context),
+                buildButtons(),
               ],
             ),
           ),

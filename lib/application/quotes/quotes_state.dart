@@ -5,6 +5,7 @@ class QuotesState with _$QuotesState {
   const factory QuotesState({
     required bool isLoading,
     required Option<Either<Failure, Quotes>> failureOrResponseOption,
+    QuoteAction? action,
   }) = _QuotesState;
 
   factory QuotesState.initial() => QuotesState(

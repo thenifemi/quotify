@@ -65,6 +65,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         state.copyWith(
           isLoading: false,
           failureOrResponseOption: some(right(quotes!)),
+          action: QuoteAction.faved,
         ),
       );
     });
@@ -88,12 +89,56 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         state.copyWith(
           isLoading: false,
           failureOrResponseOption: some(right(quotes!)),
+          action: QuoteAction.unfaved,
         ),
       );
     });
 
-    on<EditQuote>((event, emit) async {});
+    on<EditQuote>((event, emit) async {
+      emit(
+        state.copyWith(
+          isLoading: true,
+          failureOrResponseOption: none(),
+        ),
+      );
 
-    on<DeleteQuote>((event, emit) async {});
+      final quotesBox = await Hive.openBox<Quotes>('quotes');
+
+      final quotes = quotesBox.get('quotes');
+      quotes?.results.singleWhere((quote) => quote.id == event.id).content =
+          event.text;
+      quotes?.save();
+
+      emit(
+        state.copyWith(
+          isLoading: false,
+          failureOrResponseOption: some(right(quotes!)),
+          action: QuoteAction.edited,
+        ),
+      );
+    });
+
+    on<DeleteQuote>((event, emit) async {
+      emit(
+        state.copyWith(
+          isLoading: true,
+          failureOrResponseOption: none(),
+        ),
+      );
+
+      final quotesBox = await Hive.openBox<Quotes>('quotes');
+
+      final quotes = quotesBox.get('quotes');
+      quotes?.results.removeWhere((quote) => quote.id == event.id);
+      quotes?.save();
+
+      emit(
+        state.copyWith(
+          isLoading: false,
+          failureOrResponseOption: some(right(quotes!)),
+          action: QuoteAction.deleted,
+        ),
+      );
+    });
   }
 }

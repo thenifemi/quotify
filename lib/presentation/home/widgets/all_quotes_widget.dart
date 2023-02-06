@@ -36,7 +36,7 @@ class AllQuotesWidget extends StatelessWidget {
                 ),
                 child: RawMaterialButton(
                   onPressed: () async {
-                    final result = await context.router.push(
+                    await context.router.push(
                       QuoteScreenRoute(quote: quote),
                     );
                   },

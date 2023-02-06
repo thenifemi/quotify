@@ -19,6 +19,7 @@ mixin _$QuotesState {
   bool get isLoading => throw _privateConstructorUsedError;
   Option<Either<Failure, Quotes>> get failureOrResponseOption =>
       throw _privateConstructorUsedError;
+  QuoteAction? get action => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QuotesStateCopyWith<QuotesState> get copyWith =>
@@ -33,7 +34,8 @@ abstract class $QuotesStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool isLoading,
-      Option<Either<Failure, Quotes>> failureOrResponseOption});
+      Option<Either<Failure, Quotes>> failureOrResponseOption,
+      QuoteAction? action});
 }
 
 /// @nodoc
@@ -51,6 +53,7 @@ class _$QuotesStateCopyWithImpl<$Res, $Val extends QuotesState>
   $Res call({
     Object? isLoading = null,
     Object? failureOrResponseOption = null,
+    Object? action = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -61,6 +64,10 @@ class _$QuotesStateCopyWithImpl<$Res, $Val extends QuotesState>
           ? _value.failureOrResponseOption
           : failureOrResponseOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<Failure, Quotes>>,
+      action: freezed == action
+          ? _value.action
+          : action // ignore: cast_nullable_to_non_nullable
+              as QuoteAction?,
     ) as $Val);
   }
 }
@@ -75,7 +82,8 @@ abstract class _$$_QuotesStateCopyWith<$Res>
   @useResult
   $Res call(
       {bool isLoading,
-      Option<Either<Failure, Quotes>> failureOrResponseOption});
+      Option<Either<Failure, Quotes>> failureOrResponseOption,
+      QuoteAction? action});
 }
 
 /// @nodoc
@@ -91,6 +99,7 @@ class __$$_QuotesStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? failureOrResponseOption = null,
+    Object? action = freezed,
   }) {
     return _then(_$_QuotesState(
       isLoading: null == isLoading
@@ -101,6 +110,10 @@ class __$$_QuotesStateCopyWithImpl<$Res>
           ? _value.failureOrResponseOption
           : failureOrResponseOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<Failure, Quotes>>,
+      action: freezed == action
+          ? _value.action
+          : action // ignore: cast_nullable_to_non_nullable
+              as QuoteAction?,
     ));
   }
 }
@@ -109,16 +122,20 @@ class __$$_QuotesStateCopyWithImpl<$Res>
 
 class _$_QuotesState implements _QuotesState {
   const _$_QuotesState(
-      {required this.isLoading, required this.failureOrResponseOption});
+      {required this.isLoading,
+      required this.failureOrResponseOption,
+      this.action});
 
   @override
   final bool isLoading;
   @override
   final Option<Either<Failure, Quotes>> failureOrResponseOption;
+  @override
+  final QuoteAction? action;
 
   @override
   String toString() {
-    return 'QuotesState(isLoading: $isLoading, failureOrResponseOption: $failureOrResponseOption)';
+    return 'QuotesState(isLoading: $isLoading, failureOrResponseOption: $failureOrResponseOption, action: $action)';
   }
 
   @override
@@ -130,12 +147,13 @@ class _$_QuotesState implements _QuotesState {
                 other.isLoading == isLoading) &&
             (identical(
                     other.failureOrResponseOption, failureOrResponseOption) ||
-                other.failureOrResponseOption == failureOrResponseOption));
+                other.failureOrResponseOption == failureOrResponseOption) &&
+            (identical(other.action, action) || other.action == action));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, isLoading, failureOrResponseOption);
+      Object.hash(runtimeType, isLoading, failureOrResponseOption, action);
 
   @JsonKey(ignore: true)
   @override
@@ -147,13 +165,15 @@ class _$_QuotesState implements _QuotesState {
 abstract class _QuotesState implements QuotesState {
   const factory _QuotesState(
       {required final bool isLoading,
-      required final Option<Either<Failure, Quotes>>
-          failureOrResponseOption}) = _$_QuotesState;
+      required final Option<Either<Failure, Quotes>> failureOrResponseOption,
+      final QuoteAction? action}) = _$_QuotesState;
 
   @override
   bool get isLoading;
   @override
   Option<Either<Failure, Quotes>> get failureOrResponseOption;
+  @override
+  QuoteAction? get action;
   @override
   @JsonKey(ignore: true)
   _$$_QuotesStateCopyWith<_$_QuotesState> get copyWith =>

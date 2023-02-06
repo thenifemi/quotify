@@ -74,7 +74,7 @@ class Result extends HiveObject {
   @HiveField(1)
   final String author;
   @HiveField(2)
-  final String content;
+  String content;
   @HiveField(3)
   final String authorSlug;
   @HiveField(4)
@@ -107,4 +107,11 @@ class Result extends HiveObject {
         "dateModified":
             "${dateModified.year.toString().padLeft(4, '0')}-${dateModified.month.toString().padLeft(2, '0')}-${dateModified.day.toString().padLeft(2, '0')}",
       };
+}
+
+enum QuoteAction {
+  faved,
+  unfaved,
+  edited,
+  deleted,
 }

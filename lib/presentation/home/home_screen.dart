@@ -11,7 +11,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<QuotesBloc, QuotesState>(
+    return BlocConsumer<QuotesBloc, QuotesState>(
+      listener: (context, state) {
+        if (state.action != null) {
+          print(state.action);
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
