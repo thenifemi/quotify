@@ -14,61 +14,67 @@ class AllQuotesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AutoSizeText(
-            "All quotes 📃",
-            style: themeData.textTheme.bodyMedium,
-          ),
-          const SizedBox(height: 10),
-          Expanded(
-            child: ListView.builder(
-              itemCount: quotes.results.length,
-              itemBuilder: (context, index) {
-                final quote = quotes.results[index];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AutoSizeText(
+          "All quotes 📃",
+          style: themeData.textTheme.bodyMedium,
+        ),
+        const SizedBox(height: 10),
+        Expanded(
+          child: ListView.builder(
+            itemCount: quotes.results.length,
+            itemBuilder: (context, index) {
+              final quote = quotes.results[index];
 
-                return Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  decoration: BoxDecoration(
-                    color: AppColors.dark.withOpacity(0.05),
+              return Container(
+                margin: const EdgeInsets.only(bottom: 10),
+                decoration: BoxDecoration(
+                  color: AppColors.dark.withOpacity(0.05),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: RawMaterialButton(
+                  onPressed: () async {
+                    final result = await context.router.push(
+                      QuoteScreenRoute(quote: quote),
+                    );
+                  },
+                  padding: const EdgeInsets.all(10),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: RawMaterialButton(
-                    onPressed: () async {
-                      final result = await context.router.push(
-                        const QuoteScreenRoute(),
-                      );
-                      print(result);
-                    },
-                    padding: const EdgeInsets.all(10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AutoSizeText(
-                          "📜",
-                          style: themeData.textTheme.titleLarge,
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: AutoSizeText(
-                            "\"${quote.content}\" - ${quote.author}",
-                            style: themeData.textTheme.bodyMedium,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        children: [
+                          AutoSizeText(
+                            "📜",
+                            style: themeData.textTheme.titleLarge,
                           ),
+                          if (quote.faved == true)
+                            AutoSizeText(
+                              "💕",
+                              style: themeData.textTheme.titleLarge,
+                            ),
+                        ],
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: AutoSizeText(
+                          "\"${quote.content}\" - ${quote.author}",
+                          style: themeData.textTheme.bodyMedium,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -1,22 +1,27 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../application/quotes/quotes_bloc.dart';
+import '../../domain/quotes/quotes.dart';
 import '../core/app_colors.dart';
 import '../core/theme.dart';
 import 'widgets/app_buttons.dart';
 import 'widgets/app_textfields.dart';
 
 class QuoteScreen extends HookWidget {
-  const QuoteScreen({super.key});
+  const QuoteScreen({super.key, required this.quote});
+
+  final Result quote;
 
   @override
   Widget build(BuildContext context) {
     final isEditing = useState<bool>(false);
-    final textController = useTextEditingController();
+    final textController = useTextEditingController(text: quote.content);
 
-    Widget buildButtons() {
+    Widget buildButtons(BuildContext _context) {
       return AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
         child: isEditing.value
@@ -41,18 +46,27 @@ class QuoteScreen extends HookWidget {
             : Row(
                 key: UniqueKey(),
                 children: [
-                  AppButton(
-                    onPressed: () {
-                      context.router.pop("faved");
-                    },
-                    label: "💕 Fav",
-                  ),
+                  quote.faved == true
+                      ? AppButton(
+                          onPressed: () {
+                            _context
+                                .read<QuotesBloc>()
+                                .add(UnFavQuote(quote.id));
+                            context.router.pop("faved");
+                          },
+                          label: "💔 UnFav",
+                        )
+                      : AppButton(
+                          onPressed: () {
+                            _context.read<QuotesBloc>().add(FavQuote(quote.id));
+                            context.router.pop("faved");
+                          },
+                          label: "💕 Fav",
+                        ),
                   const SizedBox(width: 10),
                   AppButton(
                     onPressed: () {
                       isEditing.value = true;
-                      textController.text =
-                          "The true meaning of life is to plant trees, under whose shade you do not expect to sit.";
                     },
                     label: "🖋️ Edit",
                   ),
@@ -91,7 +105,7 @@ class QuoteScreen extends HookWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AutoSizeText(
-                    "🧔🏽‍♂️ By Socrates",
+                    "🧔🏽‍♂️ By ${quote.author}",
                     style: themeData.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 10),
@@ -112,7 +126,7 @@ class QuoteScreen extends HookWidget {
                         const SizedBox(width: 10),
                         Expanded(
                           child: AutoSizeText(
-                            "\"The true meaning of life is to plant trees, under whose shade you do not expect to sit.\"",
+                            "\"${quote.content}\"",
                             style: themeData.textTheme.bodyMedium,
                           ),
                         ),
@@ -124,24 +138,28 @@ class QuoteScreen extends HookWidget {
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: AutoSizeText(
-          "📜 Quotify",
-          style: themeData.textTheme.titleLarge,
-        ),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            buildQuote(),
-            const SizedBox(height: 10),
-            buildButtons(),
-          ],
-        ),
-      ),
+    return BlocBuilder<QuotesBloc, QuotesState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: true,
+            title: AutoSizeText(
+              "📜 Quotify",
+              style: themeData.textTheme.titleLarge,
+            ),
+          ),
+          body: Container(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                buildQuote(),
+                const SizedBox(height: 10),
+                buildButtons(context),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

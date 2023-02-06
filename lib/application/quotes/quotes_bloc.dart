@@ -46,5 +46,54 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         );
       }
     });
+
+    on<FavQuote>((event, emit) async {
+      emit(
+        state.copyWith(
+          isLoading: true,
+          failureOrResponseOption: none(),
+        ),
+      );
+
+      final quotesBox = await Hive.openBox<Quotes>('quotes');
+
+      final quotes = quotesBox.get('quotes');
+      quotes?.results.singleWhere((quote) => quote.id == event.id).faved = true;
+      quotes?.save();
+
+      emit(
+        state.copyWith(
+          isLoading: false,
+          failureOrResponseOption: some(right(quotes!)),
+        ),
+      );
+    });
+
+    on<UnFavQuote>((event, emit) async {
+      emit(
+        state.copyWith(
+          isLoading: true,
+          failureOrResponseOption: none(),
+        ),
+      );
+
+      final quotesBox = await Hive.openBox<Quotes>('quotes');
+
+      final quotes = quotesBox.get('quotes');
+      quotes?.results.singleWhere((quote) => quote.id == event.id).faved =
+          false;
+      quotes?.save();
+
+      emit(
+        state.copyWith(
+          isLoading: false,
+          failureOrResponseOption: some(right(quotes!)),
+        ),
+      );
+    });
+
+    on<EditQuote>((event, emit) async {});
+
+    on<DeleteQuote>((event, emit) async {});
   }
 }

@@ -84,7 +84,7 @@ class Result extends HiveObject {
   @HiveField(6)
   final DateTime dateModified;
   @HiveField(7)
-  final bool? faved;
+  bool? faved;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
         id: json["_id"],

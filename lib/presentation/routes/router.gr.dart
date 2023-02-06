@@ -14,6 +14,7 @@
 import 'package:auto_route/auto_route.dart' as _i3;
 import 'package:flutter/material.dart' as _i4;
 
+import '../../domain/quotes/quotes.dart' as _i5;
 import '../home/home_screen.dart' as _i1;
 import '../home/quote_screen.dart' as _i2;
 
@@ -30,9 +31,13 @@ class AppRouter extends _i3.RootStackRouter {
       );
     },
     QuoteScreenRoute.name: (routeData) {
+      final args = routeData.argsAs<QuoteScreenRouteArgs>();
       return _i3.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i2.QuoteScreen(),
+        child: _i2.QuoteScreen(
+          key: args.key,
+          quote: args.quote,
+        ),
       );
     },
   };
@@ -64,12 +69,34 @@ class HomeScreenRoute extends _i3.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.QuoteScreen]
-class QuoteScreenRoute extends _i3.PageRouteInfo<void> {
-  const QuoteScreenRoute()
-      : super(
+class QuoteScreenRoute extends _i3.PageRouteInfo<QuoteScreenRouteArgs> {
+  QuoteScreenRoute({
+    _i4.Key? key,
+    required _i5.Result quote,
+  }) : super(
           QuoteScreenRoute.name,
           path: '/quote-screen',
+          args: QuoteScreenRouteArgs(
+            key: key,
+            quote: quote,
+          ),
         );
 
   static const String name = 'QuoteScreenRoute';
+}
+
+class QuoteScreenRouteArgs {
+  const QuoteScreenRouteArgs({
+    this.key,
+    required this.quote,
+  });
+
+  final _i4.Key? key;
+
+  final _i5.Result quote;
+
+  @override
+  String toString() {
+    return 'QuoteScreenRouteArgs{key: $key, quote: $quote}';
+  }
 }
