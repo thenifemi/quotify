@@ -17,11 +17,6 @@ class AllQuotesWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AutoSizeText(
-          "All quotes 📃",
-          style: themeData.textTheme.bodyMedium,
-        ),
-        const SizedBox(height: 10),
         Expanded(
           child: ListView.builder(
             itemCount: quotes.results.length,

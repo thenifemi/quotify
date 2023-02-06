@@ -19,7 +19,7 @@ mixin _$QuotesState {
   bool get isLoading => throw _privateConstructorUsedError;
   Option<Either<Failure, Quotes>> get failureOrResponseOption =>
       throw _privateConstructorUsedError;
-  QuoteAction? get action => throw _privateConstructorUsedError;
+  Option<QuoteAction>? get action => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QuotesStateCopyWith<QuotesState> get copyWith =>
@@ -35,7 +35,7 @@ abstract class $QuotesStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       Option<Either<Failure, Quotes>> failureOrResponseOption,
-      QuoteAction? action});
+      Option<QuoteAction>? action});
 }
 
 /// @nodoc
@@ -67,7 +67,7 @@ class _$QuotesStateCopyWithImpl<$Res, $Val extends QuotesState>
       action: freezed == action
           ? _value.action
           : action // ignore: cast_nullable_to_non_nullable
-              as QuoteAction?,
+              as Option<QuoteAction>?,
     ) as $Val);
   }
 }
@@ -83,7 +83,7 @@ abstract class _$$_QuotesStateCopyWith<$Res>
   $Res call(
       {bool isLoading,
       Option<Either<Failure, Quotes>> failureOrResponseOption,
-      QuoteAction? action});
+      Option<QuoteAction>? action});
 }
 
 /// @nodoc
@@ -113,7 +113,7 @@ class __$$_QuotesStateCopyWithImpl<$Res>
       action: freezed == action
           ? _value.action
           : action // ignore: cast_nullable_to_non_nullable
-              as QuoteAction?,
+              as Option<QuoteAction>?,
     ));
   }
 }
@@ -124,14 +124,14 @@ class _$_QuotesState implements _QuotesState {
   const _$_QuotesState(
       {required this.isLoading,
       required this.failureOrResponseOption,
-      this.action});
+      required this.action});
 
   @override
   final bool isLoading;
   @override
   final Option<Either<Failure, Quotes>> failureOrResponseOption;
   @override
-  final QuoteAction? action;
+  final Option<QuoteAction>? action;
 
   @override
   String toString() {
@@ -166,14 +166,14 @@ abstract class _QuotesState implements QuotesState {
   const factory _QuotesState(
       {required final bool isLoading,
       required final Option<Either<Failure, Quotes>> failureOrResponseOption,
-      final QuoteAction? action}) = _$_QuotesState;
+      required final Option<QuoteAction>? action}) = _$_QuotesState;
 
   @override
   bool get isLoading;
   @override
   Option<Either<Failure, Quotes>> get failureOrResponseOption;
   @override
-  QuoteAction? get action;
+  Option<QuoteAction>? get action;
   @override
   @JsonKey(ignore: true)
   _$$_QuotesStateCopyWith<_$_QuotesState> get copyWith =>

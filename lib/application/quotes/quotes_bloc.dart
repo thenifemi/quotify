@@ -22,6 +22,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         state.copyWith(
           isLoading: true,
           failureOrResponseOption: none(),
+          action: none(),
         ),
       );
 
@@ -33,6 +34,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
           state.copyWith(
             isLoading: false,
             failureOrResponseOption: some(failureOrResponse),
+            action: none(),
           ),
         );
       } else {
@@ -42,6 +44,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
             failureOrResponseOption: some(right(
               quotesBox.get('quotes')!,
             )),
+            action: none(),
           ),
         );
       }
@@ -52,6 +55,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         state.copyWith(
           isLoading: true,
           failureOrResponseOption: none(),
+          action: none(),
         ),
       );
 
@@ -65,7 +69,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         state.copyWith(
           isLoading: false,
           failureOrResponseOption: some(right(quotes!)),
-          action: QuoteAction.faved,
+          action: some(QuoteAction.faved),
         ),
       );
     });
@@ -75,6 +79,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         state.copyWith(
           isLoading: true,
           failureOrResponseOption: none(),
+          action: none(),
         ),
       );
 
@@ -89,7 +94,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         state.copyWith(
           isLoading: false,
           failureOrResponseOption: some(right(quotes!)),
-          action: QuoteAction.unfaved,
+          action: some(QuoteAction.unfaved),
         ),
       );
     });
@@ -99,6 +104,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         state.copyWith(
           isLoading: true,
           failureOrResponseOption: none(),
+          action: none(),
         ),
       );
 
@@ -113,7 +119,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         state.copyWith(
           isLoading: false,
           failureOrResponseOption: some(right(quotes!)),
-          action: QuoteAction.edited,
+          action: some(QuoteAction.edited),
         ),
       );
     });
@@ -123,6 +129,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         state.copyWith(
           isLoading: true,
           failureOrResponseOption: none(),
+          action: none(),
         ),
       );
 
@@ -136,7 +143,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
         state.copyWith(
           isLoading: false,
           failureOrResponseOption: some(right(quotes!)),
-          action: QuoteAction.deleted,
+          action: some(QuoteAction.deleted),
         ),
       );
     });
